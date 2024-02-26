@@ -115,9 +115,35 @@ gsap.from('.allthebest_flower',{
 })
 
 
-let scienceText = new SplitType('.thescience_paragraph');
 
-gsap.timeline()
 
-    .from('.thescience_heading.ts_tc-pink',{yPercent:90,duration: 1.5, ease: "elastic.out(0.4,0.3)",})
-    .from(scienceText.words, {yPercent: 40, opacity: 0, duration: 1.5, ease: "elastic.out(0.4,0.3)", stagger: 0.05}, "-=1.4")
+
+var scienceTimeline = gsap.timeline();
+
+// Add animations to the timeline
+scienceTimeline.from(
+    ['.thescience_heading.ts_tc-pink', '.thescience_paragraph', '#nosweettxt'], 
+    {
+        yPercent: 90,
+        opacity: 0,
+        duration: 1.5,
+        stagger: 0.05,
+        ease: "elastic.out(0.4,0.3)",
+    }
+)
+.from('.thescience_icon-bg',{
+    scale:0.5,
+    opacity:0,
+    duration: 1,
+    ease: "elastic.out(0.4,0.3)",
+    stagger: 0.1,
+}, "-=1.6"); // Relative delay
+
+// Define the ScrollTrigger
+ScrollTrigger.create({
+    trigger: ".section_science", 
+    start: "top 40%", 
+    animation: scienceTimeline, 
+
+    
+});
