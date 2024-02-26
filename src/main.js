@@ -274,7 +274,9 @@ splitWords.forEach(splitWords => {
     }
 
 // BUTTON ANIMATIONS
+const isDesktop = window.innerWidth >= 992;
 
+if (isDesktop) {
     const buttons = document.querySelectorAll('.button');
 
     buttons.forEach(button => {
@@ -296,4 +298,23 @@ splitWords.forEach(splitWords => {
             });
         });
     });
+}
+// JAR ANIMATION
 
+gsap.fromTo('.science_heading.small', 
+    { scale: 0.8, opacity: 0, rotation: 0 }, 
+    { 
+        scale: 1, 
+        opacity: 1, 
+        duration: 1.5, 
+        ease: "elastic.out(1,0.3)" 
+    }
+);
+
+gsap.to('.science_heading.small', {
+    rotation: 8,
+    duration: 1,
+    ease: "power1.inOut",
+    yoyo: true,
+    repeat: -1 // Repeat indefinitely
+});
