@@ -102,13 +102,13 @@ paragraphs.forEach(paragraph => {
 });
 
 
-gsap.from('.allthebest_flower',{
-    scale:0,
+gsap.from('.allthebest_flower', {
+    scale: 0,
     duration: 1.5,
     ease: "elastic.out(0.4,0.3)",
     stagger: 0.1,
 
-    scrollTrigger:{
+    scrollTrigger: {
         trigger: ".section_allthebest",
         start: "top 60%",
     }
@@ -117,33 +117,124 @@ gsap.from('.allthebest_flower',{
 
 
 
+// The Science Section 
 
 var scienceTimeline = gsap.timeline();
 
 // Add animations to the timeline
 scienceTimeline.from(
-    ['.thescience_heading.ts_tc-pink', '.thescience_paragraph', '#nosweettxt'], 
-    {
-        yPercent: 90,
+        ['.thescience_heading.ts_tc-pink', '.thescience_paragraph', '#nosweettxt'], {
+            yPercent: 90,
+            opacity: 0,
+            duration: 1.5,
+            stagger: 0.05,
+            ease: "elastic.out(0.4,0.3)",
+        }
+    )
+    .from('.thescience_icon-bg', {
+        scale: 0.5,
         opacity: 0,
-        duration: 1.5,
-        stagger: 0.05,
+        duration: 1,
         ease: "elastic.out(0.4,0.3)",
-    }
-)
-.from('.thescience_icon-bg',{
-    scale:0.5,
-    opacity:0,
-    duration: 1,
-    ease: "elastic.out(0.4,0.3)",
-    stagger: 0.1,
-}, "-=1.6"); // Relative delay
+        stagger: 0.1,
+    }, "-=1.6"); // Relative delay
 
 // Define the ScrollTrigger
 ScrollTrigger.create({
-    trigger: ".section_science", 
-    start: "top 40%", 
-    animation: scienceTimeline, 
+    trigger: ".section_science",
+    start: "top 40%",
+    animation: scienceTimeline,
 
-    
+
 });
+
+
+// Star Animation
+
+const config = {
+    starAnimationDuration: 1500,
+    minimumTimeBetweenStars: 250,
+    minimumDistanceBetweenStars: 75,
+    sizes: ["5rem", "2.5rem", "1.6rem"],
+    animations: ["fall-1", "fall-2", "fall-3"]
+};
+
+let last = {
+    starTimestamp: new Date().getTime(),
+    starPosition: {
+        x: 0,
+        y: 0
+    },
+    mousePosition: {
+        x: 0,
+        y: 0
+    }
+};
+
+let count = 0;
+
+const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const selectRandom = items => items[rand(0, items.length - 1)];
+const withUnit = (value, unit) => `${value}${unit}`;
+const px = value => withUnit(value, "px");
+const ms = value => withUnit(value, "ms");
+
+const calcDistance = (a, b) => Math.sqrt((b.x - a.x) ** 2 + (b.y - a.y) ** 2);
+const calcElapsedTime = (start, end) => end - start;
+
+const appendElement = element => document.body.appendChild(element);
+const removeElement = (element, delay) => setTimeout(() => document.body.removeChild(element), delay);
+
+const createStar = position => {
+    const star = document.createElement("span");
+    star.className = "star";
+    star.style.left = px(position.x);
+    star.style.top = px(position.y);
+    star.style.height = selectRandom(config.sizes);
+    star.style.width = star.style.height;
+    star.style.pointerEvents = "none";
+    star.style.animationName = config.animations[count++ % 3];
+    star.style.animationDuration = ms(config.starAnimationDuration);
+    appendElement(star);
+    removeElement(star, config.starAnimationDuration);
+};
+
+const updateLastStar = position => {
+    last.starTimestamp = new Date().getTime();
+    last.starPosition = position;
+};
+
+const updateLastMousePosition = position => last.mousePosition = position;
+
+const handleOnMove = e => {
+    const mousePosition = {
+        x: e.clientX,
+        y: e.clientY + window.scrollY
+    };
+    if (calcDistance(last.starPosition, mousePosition) >= config.minimumDistanceBetweenStars ||
+        calcElapsedTime(last.starTimestamp, new Date().getTime()) > config.minimumTimeBetweenStars) {
+        createStar(mousePosition);
+        updateLastStar(mousePosition);
+    }
+    updateLastMousePosition(mousePosition);
+};
+
+const gummiesElement = document.querySelector('.section_ohmygummies');
+if (gummiesElement) {
+    gummiesElement.addEventListener('mousemove', handleOnMove);
+    gummiesElement.addEventListener('touchmove', e => handleOnMove(e.touches[0]));
+}
+
+
+
+    const buttons = document.querySelectorAll('.button');
+
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', () => {
+            gsap.to(button, {scale: 1.1, rotation: Math.random() * 10 - 5, duration: 0.3, ease: "power2.inOut"});
+        });
+
+        button.addEventListener('mouseleave', () => {
+            gsap.to(button, {scale: 1, rotation: 0, duration: 0.3, ease: "power2.inOut"});
+        });
+    });
