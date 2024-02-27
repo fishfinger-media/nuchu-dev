@@ -192,7 +192,7 @@ splitWords.forEach(splitWords => {
         trigger: ".section_science",
         start: "top 40%",
         animation: scienceTimeline,
-
+        
 
     });
 
@@ -316,5 +316,39 @@ gsap.to('.science_heading.small', {
     duration: 1,
     ease: "power1.inOut",
     yoyo: true,
-    repeat: -1 // Repeat indefinitely
+    repeat: -1 
 });
+
+gsap.timeline()
+.from('[floating]', {
+    scale:0,
+    
+    duration:1.6,
+    ease: "elastic.out(1,0.5)",
+
+})
+.to('[floating]', {
+    y: 10,
+    duration:1,
+    ease: "power1.inOut",
+    yoyo: true,
+    repeat: -1
+});
+
+gsap.to('[floating="alt"]', {
+    y: 10,
+    duration:1,
+    ease: "power1.inOut",
+    yoyo: true,
+    delay: 0.5,
+    repeat: -1
+})
+
+gsap.to('[floating="alt2"]', {
+    y: -10,
+    duration:1,
+    ease: "power1.inOut",
+    yoyo: true,
+    delay: 0.3,
+    repeat: -1
+})
