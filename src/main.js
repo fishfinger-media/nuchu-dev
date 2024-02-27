@@ -19,17 +19,6 @@ gsap.registerPlugin(ScrollTrigger);
     });
 
 
-    gsap.to('[data-logosize="large"]', {
-        height: "2.5rem",
-        scrollTrigger: {
-            trigger: ".header",
-            start: "bottom top",
-            end: "bottom -10vw",
-            scrub: 1,
-        }
-
-    })
-
 // HOME HERO ANIMATION
 
 // home hero text animation
@@ -277,6 +266,18 @@ splitWords.forEach(splitWords => {
 const isDesktop = window.innerWidth >= 992;
 
 if (isDesktop) {
+
+    gsap.to('[data-logosize="large"]', {
+        height: "2.5rem",
+        scrollTrigger: {
+            trigger: ".header",
+            start: "bottom top",
+            end: "bottom -10vw",
+            scrub: 1,
+        }
+
+    })
+    
     const buttons = document.querySelectorAll('.button');
 
     buttons.forEach(button => {
