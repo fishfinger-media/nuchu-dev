@@ -416,28 +416,29 @@ heroTubs.from('.home-hero_pot-wrapper.is-beauty',{
 
 
 
-const ingredients = document.querySelectorAll('.ingredients_product-wrappper');
+const fadeups = document.querySelectorAll('[gsap-fadeup]');
 
-ingredients.forEach(ingredient => {
-    gsap.from(ingredient, {
+fadeups.forEach(fadeup => {
+    gsap.from(fadeup, {
         yPercent: 5,
         duration: 2,
         ease: "elastic.out(1,0.3)",
         scrollTrigger: {
-            trigger: ingredient,
+            trigger: fadeup,
             start: 'top 90%',
             
         }
     });
 
-    gsap.from(ingredient, {
+    gsap.from(fadeup, {
         opacity: 0,
         duration: 0.25,
         ease: "power1.inOut",
         scrollTrigger: {
-            trigger: ingredient,
+            trigger: fadeup,
             start: 'top 90%',
            
         }
     });
 });
+
