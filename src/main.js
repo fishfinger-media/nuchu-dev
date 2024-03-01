@@ -117,7 +117,7 @@ gsap.registerPlugin(ScrollTrigger);
 const splitChars = document.querySelectorAll('[gsap-split-text="chars"]');
 
 splitChars.forEach(splitChars => {
-    const text = new SplitType('[gsap-split-text="chars"]');
+    const text = new SplitType(splitChars);
 
     gsap.from(text.chars,{
         yPercent: 20,
@@ -139,7 +139,7 @@ splitChars.forEach(splitChars => {
 const splitWords = document.querySelectorAll('[gsap-split-text="words"]');
 
 splitWords.forEach(splitWords => {
-    const text = new SplitType('[gsap-split-text="words"]');
+    const text = new SplitType(splitWords);
     gsap.from(text.words,{
         yPercent: 20,
         opacity: 0,
@@ -153,6 +153,25 @@ splitWords.forEach(splitWords => {
     })
 });
 
+
+// SPLIT LINES
+
+const splitLines = document.querySelectorAll('[gsap-split-text="lines"]');
+
+splitLines.forEach(splitLines => {
+    const text = new SplitType(splitLines);
+    gsap.from(text.lines,{
+        yPercent: 20,
+        opacity: 0,
+        duration: 2,
+        ease: "elastic.out(1,0.3)",
+        stagger: 0.1,
+        scrollTrigger: {
+            trigger: splitLines,
+            start: "top 80%",
+        }
+    })
+});
 
 // THE SCIENCE SECTION
 
@@ -284,7 +303,6 @@ if (isDesktop) {
         button.addEventListener('mouseenter', () => {
             gsap.to(button, {
                 scale: 1.1,
-                rotation: Math.random() * 5 - 5,
                 duration: 0.8,
                 ease: "elastic.out(1,0.3)",
             });
@@ -351,5 +369,75 @@ gsap.to('[floating="alt2"]', {
     ease: "power1.inOut",
     yoyo: true,
     delay: 0.3,
-    repeat: -1
+    repeat: -1  
 })
+
+
+
+// HERO TUBS ANIMATION
+var heroTubs = gsap.timeline();
+
+heroTubs.from('.home-hero_pot-wrapper.is-beauty',{
+    scale:0,
+    duration:2,
+    ease: "elastic.out(0.9,0.4)",
+}).from('.home-hero_pot-wrapper.is-calming',{
+    scale:0,
+    delay:-1.8,
+    duration:2,
+    ease: "elastic.out(0.9,0.4)",
+}).from('.home-hero_pot-wrapper.is-immunity',{
+    scale:0,
+    delay:-1.8,
+    duration:2,
+    ease: "elastic.out(0.9,0.4)",
+}).from('.home-hero_pot-wrapper.is-beauty',{
+     yPercent: 5,
+    duration:1.5,
+    ease: "power1.inOut",
+    yoyo:true,
+    delay:-1.8,
+    repeat:-1
+}).from('.home-hero_pot-wrapper.is-calming',{
+    yPercent: 5,
+    duration:1.5,
+    ease: "power1.inOut",
+    yoyo:true,
+    delay:-2.5,
+    repeat:-1
+}).from('.home-hero_pot-wrapper.is-immunity',{
+     yPercent: 5,
+    duration:1.5,
+    ease: "power1.inOut",
+    yoyo:true,
+    delay:-1,
+    repeat:-1
+});
+
+
+
+const ingredients = document.querySelectorAll('.ingredients_product-wrappper');
+
+ingredients.forEach(ingredient => {
+    gsap.from(ingredient, {
+        yPercent: 5,
+        duration: 2,
+        ease: "elastic.out(1,0.3)",
+        scrollTrigger: {
+            trigger: ingredient,
+            start: 'top 90%',
+            
+        }
+    });
+
+    gsap.from(ingredient, {
+        opacity: 0,
+        duration: 0.25,
+        ease: "power1.inOut",
+        scrollTrigger: {
+            trigger: ingredient,
+            start: 'top 90%',
+           
+        }
+    });
+});
