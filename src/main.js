@@ -455,7 +455,7 @@ staggerups.forEach(staggerup => {
         scrollTrigger: {
             trigger: staggerup,
             start: 'top 90%',
-            stagger: 0.2,
+            stagger: 1,
         }
     })
 })
