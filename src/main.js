@@ -442,3 +442,20 @@ fadeups.forEach(fadeup => {
     });
 });
 
+
+
+const staggerups = document.querySelectorAll('[gsap-staggerup]');
+
+staggerups.forEach(staggerup => {
+
+    gsap.from(staggerup, {
+        yPercent: 5,
+        duration: 2,
+        ease: "elastic.out(1,0.3)",
+        scrollTrigger: {
+            trigger: staggerup,
+            start: 'top 90%',
+            stagger: 0.2,
+        }
+    })
+})
