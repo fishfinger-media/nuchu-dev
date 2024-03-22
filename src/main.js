@@ -444,18 +444,15 @@ fadeups.forEach(fadeup => {
 
 
 
-const staggerups = document.querySelectorAll('[gsap-staggerup]');
 
-staggerups.forEach(staggerup => {
 
-    gsap.from(staggerup, {
+    gsap.from('[gsap-staggerup]', {
         yPercent: 5,
         duration: 2,
         ease: "elastic.out(1,0.3)",
         scrollTrigger: {
-            trigger: staggerup,
+            trigger: '[gsap-staggerup]',
             start: 'top 90%',
             stagger: 1,
         }
     })
-})
