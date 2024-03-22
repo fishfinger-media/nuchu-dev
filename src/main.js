@@ -447,12 +447,13 @@ fadeups.forEach(fadeup => {
 
 
     gsap.from('[gsap-staggerup]', {
-        yPercent: 5,
-        duration: 2,
-        ease: "elastic.out(1,0.3)",
+        yPercent:15,
+        opacity:0,
+        duration:0.5,
+        ease: "power1.inOut",
+        stagger: 0.1,
         scrollTrigger: {
             trigger: '[gsap-staggerup]',
             start: 'top 90%',
-            stagger: 1,
         }
     })
