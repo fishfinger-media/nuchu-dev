@@ -187,7 +187,7 @@ splitLines.forEach(splitLines => {
                 ease: "elastic.out(0.4,0.3)",
             }
         )
-        .from('.thescience_icon-bg', {
+        .from(['.thescience_icon-bg', '#fancy-you'], {
             scale: 0.5,
             opacity: 0,
             duration: 1,
@@ -456,4 +456,25 @@ fadeups.forEach(fadeup => {
             trigger: '[gsap-staggerup]',
             start: 'top 90%',
         }
+    })
+
+
+    // PRODUCT PAGE ANIMATIONS
+
+    gsap.from('.product-info_imagecontainer', {
+        scale: 0.6,
+        opacity: 0,
+        duration: 1,
+        ease: CustomEase.create("custom", "M0,0 C0.2223,0 0.3007,1.1527 0.523,1.1527 0.6514,1.1527 0.6968,0.9441 0.8253,0.9441 0.8995,0.9441 0.9257,1 1,1"),
+        
+    });
+
+   
+    gsap.from('[gsap-product]', {
+        yPercent:50,
+        opacity:0,
+        duration:0.8,
+        ease: CustomEase.create("custom", "M0,0 C0.2223,0 0.3007,1.1527 0.523,1.1527 0.6514,1.1527 0.6968,0.9441 0.8253,0.9441 0.8995,0.9441 0.9257,1 1,1"),
+        stagger: 0.15,
+        
     })
