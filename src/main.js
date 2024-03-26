@@ -478,3 +478,16 @@ fadeups.forEach(fadeup => {
         stagger: 0.15,
         
     })
+
+    gsap.to('.fixed-basket_container',{
+        yPercent: -100,
+        duration:0.7,
+        ease: CustomEase.create("custom", "M0,0 C0.2223,0 0.3007,1.1527 0.523,1.1527 0.6514,1.1527 0.6968,0.9441 0.8253,0.9441 0.8995,0.9441 0.9257,1 1,1"),
+        scrollTrigger:{
+            trigger:'.product-header_default-state',
+            start: 'top 5%%',
+            end: 'bottom 5%',
+            scrub: 1,
+
+        }
+    })
