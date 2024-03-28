@@ -491,3 +491,18 @@ fadeups.forEach(fadeup => {
 
         }
     })
+
+    gsap.to('.product-info_imagecontainer',{
+        height: "calc(100dvh - 8.1rem - 2rem)",
+        ease: "power2.in",
+        scrollTrigger:{
+            trigger:'.header',
+            start: 'bottom 0%',
+            end: 'bottom -1%',
+            scrub: 1,
+
+
+
+        }
+
+    })
