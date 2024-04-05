@@ -99,17 +99,36 @@ gsap.registerPlugin(ScrollTrigger);
     });
 
 
-    gsap.from('.allthebest_flower', {
-        scale: 0,
-        duration: 1.5,
-        ease: "elastic.out(0.4,0.3)",
-        stagger: 0.1,
 
-        scrollTrigger: {
-            trigger: ".section_allthebest",
-            start: "top 60%",
+
+    // Function to play video and then trigger GSAP animation
+    function playVideoAndAnimate() {
+      var video = document.getElementById('nuchu-pot');
+      video.play(); // Play the video
+
+    
+    }
+
+    gsap.set('.allthebest_flower', {scale: 0});
+    
+    gsap.from('#nuchu-pot', {
+        scrollTrigger:{
+            trigger: '.allthebest_flower-container',
+            start: 'top 70%',
+            repeat: 0,
+            onEnter: function() {
+                playVideoAndAnimate();
+                gsap.to('.allthebest_flower', {
+                    scale: 1,
+                    duration: 1.5,
+                    ease: "elastic.out(0.4,0.3)",
+                    stagger: 0.1,
+                    delay: 1 
+                });
+            }
         }
-    })
+    });
+    
 
 
 // SPLIT CHARACTERS
