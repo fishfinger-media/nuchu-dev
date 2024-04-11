@@ -101,35 +101,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 
-    // Function to play video and then trigger GSAP animation
-    function playVideoAndAnimate() {
-      var video = document.getElementById('nuchu-pot');
-      video.play(); // Play the video
-
-    
-    }
-
-    gsap.set('.allthebest_flower', {scale: 0});
-    
-    gsap.from('#nuchu-pot', {
-        scrollTrigger:{
-            trigger: '.allthebest_flower-container',
-            start: 'top 70%',
-            repeat: 0,
-            onEnter: function() {
-                playVideoAndAnimate();
-                gsap.to('.allthebest_flower', {
-                    scale: 1,
-                    duration: 1.5,
-                    ease: "elastic.out(0.4,0.3)",
-                    stagger: 0.1,
-                    delay: 1 
-                });
-            }
-        }
-    });
-    
-
 
 // SPLIT CHARACTERS
 
@@ -500,28 +471,68 @@ fadeups.forEach(fadeup => {
 
     gsap.to('.fixed-basket_container',{
         yPercent: -100,
-        duration:0.7,
+        duration: 0.7,
         ease: CustomEase.create("custom", "M0,0 C0.2223,0 0.3007,1.1527 0.523,1.1527 0.6514,1.1527 0.6968,0.9441 0.8253,0.9441 0.8995,0.9441 0.9257,1 1,1"),
-        scrollTrigger:{
-            trigger:'.product-header_default-state',
+        scrollTrigger: {
+            trigger: '.product-header_default-state',
             start: 'top 5%%',
             end: 'bottom 5%',
-            scrub: 1,
-
+            scrub: 1
         }
-    })
-
-    gsap.to('.product-info_imagecontainer',{
-        height: "calc(100dvh - 8.1rem - 2rem)",
-        ease: "power2.in",
-        scrollTrigger:{
-            trigger:'.header',
-            start: 'bottom 0%',
-            end: 'bottom -1%',
-            scrub: 1,
+    });
+    
+  
+ 
 
 
-
+    function runAnimationOnLargeScreens() {
+        if (window.innerWidth > 991) {
+            gsap.to('.product-info_imagecontainer', {
+                height: "calc(100dvh - 8.1rem - 2rem)",
+                ease: "power2.in",
+                marker: true,
+                scrollTrigger: {
+                    trigger: '.header',
+                    start: 'bottom 10%',
+                    end: 'bottom -10%',
+                    scrub: 1,
+                }
+            });
         }
+    }
 
-    })
+    // Run the function initially
+    runAnimationOnLargeScreens();
+
+    // Run the function whenever the window is resized
+    window.addEventListener('resize', runAnimationOnLargeScreens);
+
+
+
+// Function to play video and then trigger GSAP animation
+function playVideoAndAnimate() {
+    var video = document.getElementById('nuchu-pot');
+    if(video) {
+        video.play(); // Play the video if it exists
+    }
+}
+
+gsap.set('.allthebest_flower', {scale: 0});
+
+gsap.from('#nuchu-pot', {
+    scrollTrigger:{
+        trigger: '.allthebest_flower-container',
+        start: 'top 70%',
+        repeat: 0,
+        onEnter: function() {
+            playVideoAndAnimate();
+            gsap.to('.allthebest_flower', {
+                scale: 1,
+                duration: 1.5,
+                ease: "elastic.out(0.4,0.3)",
+                stagger: 0.1,
+                delay: 1 
+            });
+        }
+    }
+});
