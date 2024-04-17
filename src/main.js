@@ -275,10 +275,11 @@ splitLines.forEach(splitLines => {
 const isDesktop = window.innerWidth >= 992;
 const isHomePage = window.location.pathname === '/'; // Assuming '/' is the homepage URL
 
-
 if (isDesktop) {
 
     if (isHomePage) {
+        gsap.set('[data-logosize]', { height: "4.68rem" });
+
         gsap.to('[data-logosize]', {
             height: "2.5rem",
             scrollTrigger: {
