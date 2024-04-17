@@ -273,7 +273,7 @@ splitLines.forEach(splitLines => {
 
 // BUTTON ANIMATIONS
 const isDesktop = window.innerWidth >= 992;
-const isHomePage = window.location.pathname === '/' || window.location.pathname === '/fr/';
+const isHomePage = window.location.pathname === '/' || window.location.pathname === '/en/';
 
 if (isDesktop) {
 
