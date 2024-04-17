@@ -273,7 +273,7 @@ splitLines.forEach(splitLines => {
 
 // BUTTON ANIMATIONS
 const isDesktop = window.innerWidth >= 992;
-const isHomePage = window.location.pathname === '/'; // Assuming '/' is the homepage URL
+const isHomePage = window.location.pathname === '/' || window.location.pathname === '/fr/';
 
 if (isDesktop) {
 
