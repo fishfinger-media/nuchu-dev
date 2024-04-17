@@ -273,19 +273,22 @@ splitLines.forEach(splitLines => {
 
 // BUTTON ANIMATIONS
 const isDesktop = window.innerWidth >= 992;
+const isHomePage = window.location.pathname === '/'; // Assuming '/' is the homepage URL
+
 
 if (isDesktop) {
 
-    gsap.to('[data-logosize="large"]', {
-        height: "2.5rem",
-        scrollTrigger: {
-            trigger: ".header",
-            start: "bottom top",
-            end: "bottom -10vw",
-            scrub: 1,
-        }
-
-    })
+    if (isHomePage) {
+        gsap.to('[data-logosize]', {
+            height: "2.5rem",
+            scrollTrigger: {
+                trigger: ".header",
+                start: "bottom top",
+                end: "bottom -10vw",
+                scrub: 1,
+            }
+        });
+    }
     
     const buttons = document.querySelectorAll('.button');
 
