@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
     gsap.to("#wave-text", {
         attr: {
-            startOffset: "-80%"
+            startOffset: "-90%"
         },
         scrollTrigger: {
             trigger: ".section_wave",
