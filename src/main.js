@@ -4,6 +4,12 @@ import SplitType from 'split-type'
 
 gsap.registerPlugin(ScrollTrigger);
 
+
+gsap.config({
+    nullTargetWarn: false,
+  });
+
+
 // WAVE TEXT ANIMATION
 
 // wave-text has an attribute of startOffset, this is moved from 0 to -50% as the user scrolls down. 
@@ -516,27 +522,48 @@ fadeups.forEach(fadeup => {
 // Function to play video and then trigger GSAP animation
 function playVideoAndAnimate() {
     var video = document.getElementById('nuchu-pot');
-    if(video) {
-        video.play(); // Play the video if it exists
+    if (video && video.readyState >= 2) { // Check if video is ready to play
+        video.play();
+    } else {
+        video.addEventListener('canplay', function() {
+            video.play();
+        });
     }
 }
 
-gsap.set('.allthebest_flower', {scale: 0});
+// Function to set up GSAP animation
+function setupAnimation() {
+    gsap.set('.allthebest_flower', {scale: 0});
 
-gsap.from('#nuchu-pot', {
-    scrollTrigger:{
-        trigger: '.allthebest_flower-container',
-        start: 'top 70%',
-        repeat: 0,
-        onEnter: function() {
-            playVideoAndAnimate();
-            gsap.to('.allthebest_flower', {
-                scale: 1,
-                duration: 1.5,
-                ease: "elastic.out(0.4,0.3)",
-                stagger: 0.1,
-                delay: 1 
-            });
+    gsap.from('#nuchu-pot', {
+        scrollTrigger: {
+            trigger: '.allthebest_flower-container',
+            start: 'top 70%',
+            repeat: 0,
+            onEnter: function() {
+                playVideoAndAnimate();
+                gsap.to('.allthebest_flower', {
+                    scale: 1,
+                    duration: 1.5,
+                    ease: "elastic.out(0.4, 0.3)",
+                    stagger: 0.1,
+                    delay: 1 
+                });
+            }
         }
+    });
+}
+
+// Ensure video is fully loaded after the site has loaded
+window.onload = function() {
+    var video = document.getElementById('nuchu-pot');
+    video.addEventListener('loadeddata', function() {
+        setupAnimation();
+    });
+
+    // Fallback in case 'loadeddata' is already fired
+    if (video.readyState >= 3) { // HAVE_FUTURE_DATA
+        setupAnimation();
     }
-});
+};
+
