@@ -3,6 +3,7 @@ import { ScrollTrigger, CustomEase } from "gsap/all";
 import SplitType from 'split-type'
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(CustomEase);
 
 
 gsap.config({
@@ -500,7 +501,7 @@ fadeups.forEach(fadeup => {
             gsap.to('.product-info_imagecontainer', {
                 height: "calc(100dvh - 8.1rem - 2rem)",
                 ease: "power2.in",
-                marker: true,
+                markers: true,
                 scrollTrigger: {
                     trigger: '.header',
                     start: 'bottom 10%',
