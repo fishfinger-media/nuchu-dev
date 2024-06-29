@@ -3,12 +3,6 @@ import { ScrollTrigger, CustomEase } from "gsap/all";
 import SplitType from 'split-type'
 
 gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(CustomEase);
-
-
-gsap.config({
-    nullTargetWarn: false,
-  });
 
 
 // WAVE TEXT ANIMATION
@@ -22,6 +16,7 @@ gsap.config({
         scrollTrigger: {
             trigger: ".section_wave",
             scrub: 1,
+            markers: true,
         }
     });
 
