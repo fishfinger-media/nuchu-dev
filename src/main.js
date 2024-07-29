@@ -4,6 +4,9 @@ import SplitType from 'split-type'
 
 gsap.registerPlugin(ScrollTrigger);
 
+gsap.config ({
+    nullTargetWarn: false 
+})
 
 // WAVE TEXT ANIMATION
 
@@ -16,7 +19,7 @@ gsap.registerPlugin(ScrollTrigger);
         scrollTrigger: {
             trigger: ".section_wave",
             scrub: 1,
-            markers: true,
+            markers: false,
         }
     });
 
@@ -496,7 +499,7 @@ fadeups.forEach(fadeup => {
             gsap.to('.product-info_imagecontainer', {
                 height: "calc(100dvh - 8.1rem - 2rem)",
                 ease: "power2.in",
-                markers: true,
+                markers: false,
                 scrollTrigger: {
                     trigger: '.header',
                     start: 'bottom 10%',
@@ -566,39 +569,40 @@ window.onload = function() {
 
 
 // POPUP
-
-const offerPopup = document.querySelector('.offer-popup_wrapper');
-const popupContainer = document.querySelector('.popup_container');
-const popupClose = document.querySelector('.popup_close');
-
-function showPopup() {
-  offerPopup.style.display = 'flex';
-  gsap.to(offerPopup, { opacity: 1, duration: 0.5 });
-  gsap.to(popupContainer, { y: '-100vh', duration: 0.5, delay: 0.5 });
-}
-
-function hidePopup() {
-  gsap.to(popupContainer, { y: '0vh', duration: 0.5 });
-  gsap.to(offerPopup, { opacity: 0, duration: 0.5, delay: 0.5, onComplete: () => {
-      offerPopup.style.display = 'none';
+document.addEventListener('DOMContentLoaded', function() {
+    const offerPopup = document.querySelector('.offer-popup_wrapper');
+    const popupContainer = document.querySelector('.popup_container');
+    const popupClose = document.querySelector('.popup_close');
+  
+    function showPopup() {
+      offerPopup.style.display = 'flex';
+      gsap.to(offerPopup, { opacity: 1, duration: 0.5 });
+      gsap.to(popupContainer, { y: '0', duration: 0.5, delay: 0.5 });
     }
+  
+    function hidePopup() {
+      gsap.to(popupContainer, { y: '100vh', duration: 0.5 });
+      gsap.to(offerPopup, { opacity: 0, duration: 0.5, delay: 0.5, onComplete: () => {
+          offerPopup.style.display = 'none';
+          setPopupClosed();
+        }
+      });
+    }
+  
+    function shouldShowPopup() {
+      const popupClosed = localStorage.getItem('popupClosed');
+      if (!popupClosed) return true;
+      const daysPassed = (Date.now() - parseInt(popupClosed, 10)) / (1000 * 60 * 60 * 24);
+      return daysPassed > 15;
+    }
+  
+    function setPopupClosed() {
+      localStorage.setItem('popupClosed', Date.now().toString());
+    }
+  
+    if (shouldShowPopup()) {
+      showPopup();
+    }
+  
+    popupClose.addEventListener('click', hidePopup);
   });
-}
-
-function shouldShowPopup() {
-  const lastShown = localStorage.getItem('lastPopupShown');
-  if (!lastShown) return true;
-  const daysPassed = (Date.now() - parseInt(lastShown, 10)) / (1000 * 60 * 60 * 24);
-  return daysPassed > 30;
-}
-
-function setPopupShown() {
-  localStorage.setItem('lastPopupShown', Date.now().toString());
-}
-
-if (shouldShowPopup()) {
-  showPopup();
-  setPopupShown();
-}
-
-popupClose.addEventListener('click', hidePopup);
