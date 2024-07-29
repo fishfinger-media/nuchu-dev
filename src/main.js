@@ -567,40 +567,38 @@ window.onload = function() {
 
 // POPUP
 
-document.addEventListener('DOMContentLoaded', function() {
-    const offerPopup = document.getElementById('offerPopup');
-    const popupContainer = document.getElementById('popupContainer');
-    const popupClose = document.getElementById('popupClose');
-  
-    function showPopup() {
-      offerPopup.style.display = 'flex';
-      gsap.to(offerPopup, { opacity: 1, duration: 0.5 });
-      gsap.to(popupContainer, { y: '-100vh', duration: 0.5, delay: 0.5 });
+const offerPopup = document.querySelector('.offer-popup_wrapper');
+const popupContainer = document.querySelector('.popup_container');
+const popupClose = document.querySelector('.popup_close');
+
+function showPopup() {
+  offerPopup.style.display = 'flex';
+  gsap.to(offerPopup, { opacity: 1, duration: 0.5 });
+  gsap.to(popupContainer, { y: '-100vh', duration: 0.5, delay: 0.5 });
+}
+
+function hidePopup() {
+  gsap.to(popupContainer, { y: '0vh', duration: 0.5 });
+  gsap.to(offerPopup, { opacity: 0, duration: 0.5, delay: 0.5, onComplete: () => {
+      offerPopup.style.display = 'none';
     }
-  
-    function hidePopup() {
-      gsap.to(popupContainer, { y: '0vh', duration: 0.5 });
-      gsap.to(offerPopup, { opacity: 0, duration: 0.5, delay: 0.5, onComplete: () => {
-          offerPopup.style.display = 'none';
-        }
-      });
-    }
-  
-    function shouldShowPopup() {
-      const lastShown = localStorage.getItem('lastPopupShown');
-      if (!lastShown) return true;
-      const daysPassed = (Date.now() - parseInt(lastShown, 10)) / (1000 * 60 * 60 * 24);
-      return daysPassed > 30;
-    }
-  
-    function setPopupShown() {
-      localStorage.setItem('lastPopupShown', Date.now().toString());
-    }
-  
-    if (shouldShowPopup()) {
-      showPopup();
-      setPopupShown();
-    }
-  
-    popupClose.addEventListener('click', hidePopup);
   });
+}
+
+function shouldShowPopup() {
+  const lastShown = localStorage.getItem('lastPopupShown');
+  if (!lastShown) return true;
+  const daysPassed = (Date.now() - parseInt(lastShown, 10)) / (1000 * 60 * 60 * 24);
+  return daysPassed > 30;
+}
+
+function setPopupShown() {
+  localStorage.setItem('lastPopupShown', Date.now().toString());
+}
+
+if (shouldShowPopup()) {
+  showPopup();
+  setPopupShown();
+}
+
+popupClose.addEventListener('click', hidePopup);
